@@ -69,7 +69,11 @@ def get_kitti_object_list(label_file, camera_to_velodyne=None):
 def load_velodyne_scan(file):
     """Load and parse velodyne binary file"""
     scan = np.fromfile(file, dtype=np.float32)
-    return scan.reshape((-1, 4))[:, :4]
+    try:
+        re = scan.reshape((-1, 5))
+    except Exception:
+        re = scan.reshape((-1, 4))
+    return re
 
 
 def load_calib_data(path_total_dataset, name_camera_calib, tf_tree):

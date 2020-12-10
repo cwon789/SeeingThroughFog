@@ -55,7 +55,7 @@ class DatasetViewer(QtGui.QMainWindow):
         if key is not None:
             self.recordings = None
         else:
-            self.recordings = sorted(os.listdir(os.path.join(self.root_dir, self.rgb_default)))
+            self.recordings = sorted(os.listdir(os.path.join(self.root_dir, self.rgb_default)))[1:]
 
         self.weather = ['clear', 'light_fog', 'dense_fog', 'rain', 'snow']
         self.daytimes = ['day', 'night']
@@ -98,7 +98,7 @@ class DatasetViewer(QtGui.QMainWindow):
         # self.showMaximized()
 
         self.w = gl.GLViewWidget()
-        self.w.setCameraPosition(pos=[0, 0, 0], distance=10, azimuth=180, elevation=10)
+        self.w.setCameraPosition(pos=QtGui.QVector3D(0, 0, 0), distance=10, azimuth=180, elevation=10)
         self.initComboBoxes()
 
         self.update_sample()
@@ -628,22 +628,22 @@ class DatasetViewer(QtGui.QMainWindow):
             return os.path.join(self.root_dir, self.lidar3d_topic, os.path.splitext(recording)[0] + '.bin')
         if topic == 'can_speed':
             try:
-                return os.path.join(self.root_dir, self.can_speed_topic, os.path.splitext(recording)[0] + '.json')
+                return None # return os.path.join(self.root_dir, self.can_speed_topic, os.path.splitext(recording)[0] + '.json')
             except Exception:
                 return None
         if topic == 'can_steering_angle':
             try:
-                return os.path.join(self.root_dir, self.can_steering_angle_topic, os.path.splitext(recording)[0] + '.json')
+                return None # return os.path.join(self.root_dir, self.can_steering_angle_topic, os.path.splitext(recording)[0] + '.json')
             except Exception:
                 return None
         if topic == 'can_light_sense':
             try:
-                return os.path.join(self.root_dir, self.can_light_sense_topic, os.path.splitext(recording)[0] + '.json')
+                return None # return os.path.join(self.root_dir, self.can_light_sense_topic, os.path.splitext(recording)[0] + '.json')
             except Exception:
                 return None
         if topic == 'can_wiper':
             try:
-                return os.path.join(self.root_dir, self.can_wiper_topic, os.path.splitext(recording)[0] + '.json')
+                return None # return os.path.join(self.root_dir, self.can_wiper_topic, os.path.splitext(recording)[0] + '.json')
             except Exception:
                 return None
         if topic == 'road_friction':
@@ -698,7 +698,7 @@ class DatasetViewer(QtGui.QMainWindow):
                 self.badSensorCheckBox.setEnabled(True)
 
     def resetViewButton_clicked(self):
-        self.w.setCameraPosition(pos=[0, 0, 0], distance=10, azimuth=180, elevation=10)
+        self.w.setCameraPosition(pos=QtGui.QVector3D(0, 0, 0), distance=10, azimuth=180, elevation=10)
 
     def goToIndexEdit_returnPressed(self):
         try:
